@@ -5,6 +5,7 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -24,6 +25,9 @@ public final class Constants {
   public static final int frontRight = 4;
   public static final int backRight = 5;
   public static final int middleRight = 6;
+
+  public static final boolean setInvertedRight = false;
+  public static final boolean setInvertedLeft = !setInvertedRight;
 }
 
 
