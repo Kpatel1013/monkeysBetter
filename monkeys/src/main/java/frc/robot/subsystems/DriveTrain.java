@@ -16,12 +16,41 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class DriveTrain extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   public DriveTrain() {
+    //instantiates the whells and creates constants for them
     WPI_TalonFX frontLeft = new WPI_TalonFX(Constants.frontLeft);
     WPI_TalonFX frontRight = new WPI_TalonFX(Constants.frontRight);
-    WPI_TalonFX middleLeft = new WPI_TalonFX(0);
-    WPI_TalonFX middleRight = new WPI_TalonFX(0);
-    WPI_TalonFX backRight = new WPI_TalonFX(0);
-    WPI_TalonFX backLeft = new WPI_TalonFX(0);
+    WPI_TalonFX middleLeft = new WPI_TalonFX(Constants.middleLeft);
+    WPI_TalonFX middleRight = new WPI_TalonFX(Constants.middleRight);
+    WPI_TalonFX backRight = new WPI_TalonFX(Constants.backRight);
+    WPI_TalonFX backLeft = new WPI_TalonFX(Constants.backLeft);
+    
+    //sets invert types for all wheels
+    frontRight.setInverted(Constants.setInvertedRight);
+    middleRight.setInverted(Constants.setInvertedRight);
+    backRight.setInverted(Constants.setInvertedRight);
+    frontLeft.setInverted(Constants.setInvertedLeft);
+    middleLeft.setInverted(Constants.setInvertedLeft);
+    backLeft.setInverted(Constants.setInvertedLeft);
+
+    // nuetral type(bassicaly breaking the robot, (think of a bike) 
+    //You dont want to hit the brakes on the front or your pp will go bye
+    //(in this case your robot will topple forward)
+    frontRight.setNeutralMode(NeutralMode.Coast);
+    frontLeft.setNeutralMode(NeutralMode.Coast); //Coast means that the wheel will just stop moving/freespin(no pressure)
+    middleRight.setNeutralMode(NeutralMode.Brake); //.Brake means it will stop working(pressure)
+    middleLeft.setNeutralMode(NeutralMode.Brake);
+    middleRight.setNeutralMode(NeutralMode.Brake);
+    backRight.setNeutralMode(NeutralMode.Brake);
+    backLeft.setNeutralMode(NeutralMode.Brake);
+
+
+    //follows the middle and back wheels to the front wheels(makes them all follow the same speed)
+    middleLeft.follow(frontLeft);
+    backLeft.follow(frontLeft);
+    middleRight.follow(frontRight);
+    backRight.follow(frontRight);
+  
+    DifferentialDrive drive = new DifferentialDrive(frontLeft,frontRight);
   }
   /**
    * Example command factory method.
