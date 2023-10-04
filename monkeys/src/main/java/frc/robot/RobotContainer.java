@@ -20,7 +20,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveTrain m_exampleSubsystem = new DriveTrain();
+  static private final DriveTrain driveTrain = new DriveTrain();
+  static private final DriveCommand driveCommand = new DriveCommand(driveTrain);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -43,12 +44,12 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new DriveCommand(m_exampleSubsystem));
+    new Trigger(driveTrain::exampleCondition)
+        .onTrue(new DriveCommand(driveTrain));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    m_driverController.b().whileTrue(driveTrain.exampleMethodCommand());
   }
 
   /**
@@ -58,6 +59,10 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_exampleSubsystem);
+    return Autos.exampleAuto(driveTrain);
+  }
+
+  public Command getTeleopCommand() {
+    return driveCommand;
   }
 }

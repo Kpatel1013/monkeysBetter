@@ -28,6 +28,10 @@ public final class Constants {
 
   public static final boolean setInvertedRight = false;
   public static final boolean setInvertedLeft = !setInvertedRight;
+
+  public static final int xboxPort = 1;
+
+ 
 }
 
 

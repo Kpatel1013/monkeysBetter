@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveTrain extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
-  private DifferentialDrive drive;
+  private DifferentialDrive diffDrive;
   public DriveTrain() {
     //instantiates the whells and creates constants for them
     WPI_TalonFX frontLeft = new WPI_TalonFX(Constants.frontLeft);
@@ -51,11 +51,11 @@ public class DriveTrain extends SubsystemBase {
     middleRight.follow(frontRight);
     backRight.follow(frontRight);
   
-    drive = new DifferentialDrive(frontLeft,frontRight);
+    diffDrive = new DifferentialDrive(frontLeft,frontRight);
   }
 
   public void manualDrive(double throttle, double turn) {
-    drive.arcadeDrive(throttle, turn);
+    diffDrive.arcadeDrive(throttle, turn);
   }
   /**
    * Example command factory method.
