@@ -31,7 +31,7 @@ public final class Constants {
 
   public static final int xboxPort = 1;
 
- 
+  public static final double LIMELIGHT_LENS_HEIGHT = 20.3213213;
 }
 
 

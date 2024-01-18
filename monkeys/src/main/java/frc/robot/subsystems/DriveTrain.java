@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class DriveTrain extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   private boolean isTracking;
+  private LimeLight limelight;
 
   public boolean isTracking() {
     return isTracking;
@@ -26,8 +27,9 @@ public class DriveTrain extends SubsystemBase {
   }
 
   private DifferentialDrive diffDrive;
-  public DriveTrain() {
-
+  public DriveTrain(LimeLight limelight) {
+    
+    this.limelight = limelight;
     isTracking = true;
     //instantiates the whells and creates constants for them
     WPI_TalonFX frontLeft = new WPI_TalonFX(Constants.frontLeft);
@@ -66,8 +68,19 @@ public class DriveTrain extends SubsystemBase {
     diffDrive = new DifferentialDrive(frontLeft,frontRight);
   }
 
+  public int calculateTrackingTurn() {
+    if(Math.abs(limelight.getXAngle()) <= 0.5) {
+      return 0;
+    }
+    if(Math.abs(limelight.getXAngle()) == limelight.getXAngle() ) {
+      return 1;  
+    } else {
+      return -1;
+    }
+  }
+
   public void manualDrive(double throttle, double turn) {
-    diffDrive.arcadeDrive(throttle, isTracking ? 0 : turn);
+    diffDrive.arcadeDrive(throttle, (isTracking ? calculateTrackingTurn() : turn));
   }
   /**
    * Example command factory method.
