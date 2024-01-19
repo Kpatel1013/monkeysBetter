@@ -26,6 +26,10 @@ public final class Constants {
   public static final int backRight = 5;
   public static final int middleRight = 6;
 
+
+  public static final int bottomMotorForShooter = 8;
+  public static final int topMotorForShooter = 7;
+
   public static final boolean setInvertedRight = false;
   public static final boolean setInvertedLeft = !setInvertedRight;
 
