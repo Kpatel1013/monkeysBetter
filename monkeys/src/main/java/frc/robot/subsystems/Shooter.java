@@ -1,39 +1,63 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+import com.revrobotics.CANSparkMax;
+
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
+import edu.wpi.first.math.controller.PIDController;
+
+
 public class Shooter {
-    private boolean isShooting;
-    private double Velocity;
+    
+    private final CANSparkMax topMotor; //neo
+    private final CANSparkMax bottomMotor; //neo 550
+    private final CANSparkMax armLeftMotor; //neo
+    private final CANSparkMax armRightMotor; //neo
 
-    WPI_TalonFX bottomMotorForShooter = new WPI_TalonFX(Constants.bottomMotorForShooter);
-    WPI_TalonFX topMotorForShooter = new WPI_TalonFX(Constants.topMotorForShooter);
-
-    topMotorForShooter.follow(bottomMotorForShooter);
-
+    private final RelativeEncoder topEncoder; //encoder for top 
+    private final RelativeEncoder bottomEncoder; //encoder for bottom
+    private final RelativeEncoder armLeftEncoder; //encoder for left arm
+    private final RelativeEncoder armRightEncoder; //encoder for right arm
   
+    public Shooter() {
 
-    public double getVelocity() {
-        return this.bottomMotorForShooter.getSelectedSensorVelocity() 
-      }
-    
-    public double getVoltageOutput() {
-        return this.bttomMotorForShooter.getMotorOutputVoltage();
-      }
-    
-    public void setVelocity(double Velocity) {
-        this.Velocity = Velocity;
-      }
-     
-    public boolean isShooting() {
-        return isShooting;
-      }
+      topMotor = new CANSparkMax(Constants.TOP_MOTORID, CANSparkMax.MotorType.kBrushless);
+      bottomMotor = new CANSparkMax(Constants.BOTTOM_MOTORID, CANSparkMax.MotorType.kBrushless);
+      armLeftMotor = new CANSparkMax(Constants.LEFTARM_MOTORID, CANSparkMax.MotorType.kBrushless);
+      armRightMotor = new CANSparkMax(Constants.RIGHTARM_MOTORID, CANSparkMax.MotorType.kBrushless);
 
-    public void isShooting(boolean isShooting) {
-        this.isShooting = isShooting;
-      }
-    
-     
+      topMotor.restoreFactoryDefaults();
+      bottomMotor.restoreFactoryDefaults();
+      armLeftMotor.restoreFactoryDefaults();
+      armRightMotor.restoreFactoryDefaults();
 
-}
+      topMotor.setInverted(false); 
+      bottomMotor.setInverted(false); 
+
+      topMotor.follow(bottomMotor);
+
+      armLeftMotor.setInverted(true);
+      armRightMotor.setInverted(false);
+
+      armRightMotor.follow(armLeftMotor);
+
+      topMotor.setSmartCurrentLimit(Constants.TOP_MOTOR_CURRENT_LIMIT);
+      bottomMotor.setSmartCurrentLimit(Constants.BOTTOM_MOTOR_CURRENT_LIMIT);
+      armLeftMotor.setSmartCurrentLimit(Constants.LEFTARM_MOTOR_CURRENT_LIMIT);
+      armRightMotor.setSmartCurrentLimit(Constants.RIGHTARM_MOTOR_CURRENT_LIMIT);
+
+      // topMotor.setIdleMode(TurretConstants.kShootMotorIdleMode);
+      // bottomMotor.setIdleMode(TurretConstants.kRotateMotorIdleMode);
+      // armLeftMotor.setIdleMode(TurretConstants.kIntakeMotorIdleMode);
+      // armRightMotor.setIdleMode(TurretConstants.kIntakeMotorIdleMode);
+
+
+      topEncoder = topMotor.getEncoder();
+      bottomEncoder = bottomMotor.getEncoder();
+      armLeftEncoder = armLefteMotor.getEncoder();
+      armRightEncoder = armRightMotor.getEncoder();
+    }
+ 

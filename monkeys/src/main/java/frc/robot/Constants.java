@@ -27,8 +27,20 @@ public final class Constants {
   public static final int middleRight = 6;
 
 
-  public static final int bottomMotorForShooter = 8;
-  public static final int topMotorForShooter = 7;
+  public static final int TOP_MOTORID = 7; // neo
+  public static final int BOTTOM_MOTORID = 8; //neo 550
+  public static final int LEFTARM_MOTORID = 9; //neo 
+  public static final int RIGHTARM_MOTORID = 9; //neo
+
+  public static final int TOP_MOTOR_CURRENT_LIMIT = 40; // neo amp
+  public static final int BOTTOM_MOTOR_CURRENT_LIMIT = 20; // neo 550 amp
+  public static final int LEFTARM_MOTOR_CURRENT_LIMIT = 40; //neo amp
+  public static final int RIGHTARM_MOTOR_CURRENT_LIMIT = 40; // neo amp
+
+  // public static final IdleMode TOP_MOTOR_IDLE_MODE = IdleMode.kCoast;
+  // public static final IdleMode BOTTOM_MOTOR_IDLE_MODE = IdleMode.kBrake;
+  // public static final IdleMode LEFTARM_MOTOR_IDLE_MODE = IdleMode.kBrake;
+  // public static final IdleMode RIGHTMOTOR_MOTOR_IDLE_MODE = IdleMode.kBrake;
 
   public static final boolean setInvertedRight = false;
   public static final boolean setInvertedLeft = !setInvertedRight;
