@@ -6,11 +6,10 @@ import frc.robot.Constants;
 import com.revrobotics.CANSparkMax;
 
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.math.controller.PIDController;
 
 
-public class Shooter {
+public class Shooter extends PIDSubsystem {
     
     private final CANSparkMax topMotor; //neo
     private final CANSparkMax bottomMotor; //neo 550
@@ -57,7 +56,16 @@ public class Shooter {
 
       topEncoder = topMotor.getEncoder();
       bottomEncoder = bottomMotor.getEncoder();
-      armLeftEncoder = armLefteMotor.getEncoder();
+      armLeftEncoder = armLeftMotor.getEncoder();
       armRightEncoder = armRightMotor.getEncoder();
+
+      PIDController turretPID = new PIDController(Constants.ShootingP, 
+                                                  Constants.ShootingI, 
+                                                  Constants.ShootingD); 
+      PIDController.enableContinuousOutput(-180, 180); 
+      
+
+      armLeftMotor.set(pid.calculate(armLeftEncoder.getDistance(), setPoint) + feedforward);
+      armRightMotor.set(pid.calculate(armRightEncoder.getDistance(), setPoint) + feedforward);
     }
  

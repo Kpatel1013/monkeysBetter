@@ -48,6 +48,12 @@ public final class Constants {
   public static final int xboxPort = 1;
 
   public static final double LIMELIGHT_LENS_HEIGHT = 20.3213213;
+
+  public static final double ShootingP = 0;
+  public static final double ShootingI = 0;
+  public static final double ShootingD = 0;
+
+  public static final double feedforward = 0;
 }
 
 
